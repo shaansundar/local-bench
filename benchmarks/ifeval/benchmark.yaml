@@ -1,0 +1,13 @@
+slug: ifeval
+title: IFEval
+category: Instruction following
+description: 541 prompts with verifiable formatting instructions ("no commas", "at least 400 words"...). Official Google checkers; primary score is prompt-level strict accuracy.
+runner: chat
+metric: prompt-level strict accuracy
+max_tokens: 16384
+stratify: false
+sources:
+  - url: https://huggingface.co/datasets/google/IFEval
+  - url: https://github.com/google-research/google-research/tree/master/instruction_following_eval
+    revision: e6890f85757dd84e27ca6df2dd30651dafad28e0
+license: Apache-2.0

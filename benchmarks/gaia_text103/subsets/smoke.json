@@ -1,0 +1,14 @@
+{
+ "benchmark": "gaia_text103",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "15c4096c9344",
+ "ids": [
+  "0bb3b44a-ede5-4db5-a520-4e844b0079c5",
+  "5a0c1adf-205e-4841-a666-7c3ef95def9d",
+  "dd3c7503-f62a-4bd0-9f67-1b63b94194cc",
+  "50ec8903-b81f-4257-9450-1085afd2c319",
+  "676e5e31-a554-4acc-9286-b60d90a92d26"
+ ]
+}

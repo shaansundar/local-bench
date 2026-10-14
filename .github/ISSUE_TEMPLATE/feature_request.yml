@@ -1,0 +1,28 @@
+name: Feature request
+description: Suggest an improvement to the CLI, model support, runners or dashboard
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem would this solve?
+      description: What are you trying to do, and what gets in the way today?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: How you imagine it working (commands, config, UI). Alternatives you considered are welcome too.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - CLI / orchestration
+        - Model servers / clients
+        - opencode runner / sandbox
+        - Grading / judge
+        - Dashboard
+        - Docs
+        - Other

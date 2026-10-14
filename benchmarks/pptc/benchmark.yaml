@@ -1,0 +1,14 @@
+slug: pptc
+title: PPTC (PowerPoint Task Completion)
+category: Presentation
+description: Multi-turn PowerPoint sessions — creating new slides (229 sessions) and editing templates (50 sessions). Turn-based setting — for each turn the model sees the official prompt (API reference, current deck content, dialogue history with feasible API sequences) and replies with an API sequence. It is executed by PPTC's python-pptx executor in the sandbox and checked with the official PPTX-Match (attributes and position constraints). Stratified by task.
+runner: chat
+metric: turn-based accuracy
+max_tokens: 16384
+sources:
+  - url: https://github.com/gydpku/PPTC
+    revision: 277f56ffc548ce51024d5cc7c0607aeb49b584b8
+license: MIT
+notes: Runs the official PPTC modules in their own venv (python-pptx 0.6.21). The official harness truncates prompts to the GPT-4 limit (8,191 tokens); the same limit is used here.
+oracle_min: 0.6  # replaying label APIs is imperfect by design: selections made in earlier turns are not in the reloaded deck
+null_max: 0.25   # some turns only change positions skipped when label decks are built, so an empty reply matches (≈8% at n=50; noisy at n=5)

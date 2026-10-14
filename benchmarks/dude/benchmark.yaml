@@ -1,0 +1,14 @@
+slug: dude
+title: DUDE (val)
+category: Doc / vision
+description: Document Understanding Dataset and Evaluation — 6,318 validation questions over 744 multi-page, multi-domain documents (extractive, abstractive, list and unanswerable questions). The model gets the provided Azure OCR text page by page (no images, so any model can run it); ANLS with list and unanswerable handling. Test answers are hidden behind the RRC server.
+runner: chat
+metric: ANLS
+max_tokens: 8192
+badges: [adapted]
+sources:
+  - url: https://huggingface.co/datasets/jordyvl/DUDE_loader
+  - url: https://zenodo.org/record/7763635
+    note: annotations (2023-03-23 public release)
+license: CC-BY-4.0 (annotations); documents retain their own licenses
+notes: Adapted — text-only input from the official Azure OCR instead of page images, and a simplified list-answer ANLS (greedy best match per gold item, divided by max(#gold, #predicted)). Fetch streams only the OCR part of the 21 GB archive.

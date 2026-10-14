@@ -1,0 +1,14 @@
+{
+ "benchmark": "mmlu_redux",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "a687766e7c5b",
+ "ids": [
+  "high_school_government_and_politics/40",
+  "high_school_mathematics/9",
+  "college_physics/49",
+  "high_school_geography/72",
+  "anatomy/26"
+ ]
+}

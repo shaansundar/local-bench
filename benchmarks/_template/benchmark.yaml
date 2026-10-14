@@ -1,0 +1,19 @@
+# Scaffolded by `bench new __SLUG__`. Every field is documented in docs/NEW_BENCHMARK.md §3.
+slug: __SLUG__
+title: __TITLE__
+category: __CATEGORY__
+description: >-
+  One or two sentences: what is measured, how many items, how it is graded.
+runner: __RUNNER__            # chat | oc | native
+metric: accuracy
+max_tokens: 16384
+# judge: true                 # some samples are graded by the cloud judge
+# repeats: 4                  # generations per sample (avg@k)
+# tiers: {smoke: 5, quick: null, standard: null, full: null}   # override tier sizes for tiny sets
+# requires: {vision: false, min_context: 0, tool_calling: false, network: false, judge_runtime: false}
+# badges: [adapted]           # adapted | substitute | partial | vision | judge
+# options: {}                 # benchmark-specific settings read via self.spec.options
+sources:
+  - url: https://example.org/where-the-data-comes-from
+    revision: null            # pin a commit / dataset revision
+license: unknown

@@ -1,0 +1,15 @@
+slug: clawgym_bench
+title: ClawGym-Bench
+category: General agent
+description: 200 workspace-grounded "claw" assistant tasks across 11 categories (automation, office, software, analysis, messaging, ...). The opencode agent works in a mock workspace; scored by each task's hidden reward/test.py (injected only after the agent finishes, run in the sandbox) and, for the 46 hybrid tasks, the official rubric judged by the cloud judge (0.7 × code + 0.3 × rubric). Stratified by category.
+runner: oc
+metric: reward
+judge: true
+sample_timeout_s: 2400
+badges: [adapted]
+sources:
+  - url: https://github.com/ClawGym/ClawGym-Bench
+    revision: c8cbd1d0df033af24fc14064d40d6964ca8f611f
+  - url: https://huggingface.co/datasets/RUC-AIBOX/ClawGym-Bench
+license: see repository
+notes: Adapted — tasks target the OpenClaw harness; here they run through opencode with the same workspace files and hidden verifiers. Code-only tasks need no judge; hybrid tasks stay judge-pending until a judge is configured.

@@ -1,0 +1,16 @@
+# downloads, vendored upstream code, run outputs
+data/
+vendor/
+results/
+.env
+# your own model registry (models.example.yaml is the committed template)
+models.yaml
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+web/node_modules/
+web/dist/
+graft/
+.DS_Store
+.ignore

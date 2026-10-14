@@ -1,0 +1,59 @@
+name: Bug report
+description: Something in the suite, a grader or the dashboard doesn't work as expected
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for reporting! For security issues (sandbox escapes, secret leaks), **don't** file here;
+        use [private vulnerability reporting](https://github.com/shaansundar/local-bench/security/advisories/new) instead.
+        Remove API keys and personal paths from anything you paste.
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What did you expect to happen, and what happened instead?
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: The exact `bench` command(s) you ran.
+      placeholder: |
+        uv run bench run -m my-model -b scicode -t smoke
+    validations:
+      required: true
+  - type: input
+    id: benchmark
+    attributes:
+      label: Benchmark(s) and tier
+      placeholder: scicode / smoke
+  - type: textarea
+    id: model
+    attributes:
+      label: Model entry from models.yaml (keys removed)
+      render: yaml
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant log output
+      description: From the terminal, `results/worker*.log`, the dashboard's error, or a sample's error field. Run and sample ids help.
+      render: text
+  - type: textarea
+    id: doctor
+    attributes:
+      label: Output of `uv run bench doctor`
+      render: text
+  - type: input
+    id: system
+    attributes:
+      label: macOS version, chip and RAM
+      placeholder: macOS 26.1, M3 Pro, 36 GB
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: local-bench version or commit
+      placeholder: v0.1.0 or git rev-parse --short HEAD

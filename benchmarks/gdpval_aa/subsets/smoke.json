@@ -1,0 +1,14 @@
+{
+ "benchmark": "gdpval_aa",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "52a69ac3af6f",
+ "ids": [
+  "8314d1b1-5b0f-42a4-b5d5-91c0867b0913",
+  "2d06bc0a-89c6-4e89-9417-5ffe725c1bc6",
+  "b1a79ce1-86b0-41fb-97dc-9206dfd7b044",
+  "76418a2c-a3c0-4894-b89d-2493369135d9",
+  "b78fd844-db76-448e-a783-5e9877cb74c2"
+ ]
+}

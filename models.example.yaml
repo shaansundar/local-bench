@@ -1,0 +1,136 @@
+# Model registry template. Copy it to models.yaml (gitignored) and edit:
+#
+#   cp models.example.yaml models.yaml
+#
+# Until models.yaml exists, the suite reads this file. Every key can be passed to `bench run --models`.
+#
+# kind:
+#   external  you run the server yourself (LM Studio, llama-server, mlx_lm.server, vLLM, …);
+#             the suite only health-checks base_url
+#   managed   the suite launches it (launcher: ollama | llama_server | mlx_lm | mlx_vlm | command),
+#             waits for /v1/models, runs its jobs, then stops it — one local model in RAM at a time
+#   cloud     hosted API (provider: anthropic | openai), or opencode-only (provider: opencode)
+# Built-in mock models `oracle` and `null` exist for grader self-tests (`bench validate`).
+#
+# api_key: "env:VAR" (from .env) | "opencode:<provider>" (read from your opencode config) | literal
+#
+# opencode_model: how opencode addresses this model ("<provider>/<model>"); needed for agentic
+#   benchmarks. For local servers, declare the provider in ~/.config/opencode/opencode.json.
+#
+# provider: opencode — every call goes through `opencode run` (auth from OPENCODE_API_KEY or
+#   `opencode auth login`): chat benchmarks via a tool-less agent, agentic ones via the sandboxed agent.
+#   Native harnesses that need a raw endpoint are n/a. Set opencode_stock_prompt: true for services
+#   that only accept opencode's own system prompt + toolset (opencode's free tier).
+
+models:
+  # A small model for checking your setup end to end (launch -> health-check -> warm-up -> stop).
+  # Needs `uv tool install mlx-lm` (Apple Silicon).
+  tiny-qwen-mlx:
+    display_name: Qwen2.5 0.5B Instruct (MLX 4-bit, smoke tests)
+    kind: managed
+    launcher: mlx_lm
+    model: mlx-community/Qwen2.5-0.5B-Instruct-4bit
+    mem_gb: 1
+    context: 32768
+    max_output_tokens: 4096
+    max_concurrency: 2
+    startup_timeout_s: 900
+
+  # A real contender that fits a 16 GB Mac.
+  qwen3-8b-mlx:
+    display_name: Qwen3 8B (MLX 4-bit)
+    kind: managed
+    launcher: mlx_lm
+    model: mlx-community/Qwen3-8B-4bit
+    mem_gb: 6
+    context: 131072
+    max_output_tokens: 32768
+    max_concurrency: 2
+
+  # --- more examples: uncomment / adapt ---------------------------------------------------
+  # A server you already run (LM Studio, llama-server, mlx_vlm.server, vLLM, …):
+  # my-local-model:
+  #   kind: external
+  #   provider: openai
+  #   base_url: http://127.0.0.1:8080/v1
+  #   model_id: my-model                 # the id the server expects in requests
+  #   api_key: local                     # or opencode:<provider> to reuse your opencode config
+  #   opencode_model: local/my-model     # provider/model as declared in your opencode config
+  #   context: 131072
+  #   max_output_tokens: 32768
+  #   vision: false
+  #   tool_calling: true
+  #   max_concurrency: 2
+  #
+  # qwen3-30b-a3b-mlx:
+  #   kind: managed
+  #   launcher: mlx_lm
+  #   model: mlx-community/Qwen3-30B-A3B-4bit
+  #   mem_gb: 18
+  #   context: 131072
+  #   max_concurrency: 2
+  #
+  # gemma-ollama:
+  #   kind: managed
+  #   launcher: ollama
+  #   model: gemma3:27b
+  #   mem_gb: 20
+  #   context: 131072
+  #
+  # some-gguf:
+  #   kind: managed
+  #   launcher: llama_server
+  #   model: /path/to/model.gguf          # or an HF repo like unsloth/Qwen3-8B-GGUF:Q4_K_M
+  #   launcher_args: ["--flash-attn", "on"]
+  #   mem_gb: 10
+  #   context: 65536
+  #   max_concurrency: 4
+  #
+  # A cloud reference model — also a good fixed judge (set judge.model in config.yaml):
+  # claude-opus-5-5:
+  #   kind: cloud
+  #   provider: anthropic
+  #   model_id: claude-opus-5-5
+  #   api_key: env:ANTHROPIC_API_KEY
+  #   opencode_model: anthropic/claude-opus-5-5
+  #   context: 1000000
+  #   max_output_tokens: 64000
+  #   vision: true
+  #   max_concurrency: 8
+  #   params:
+  #     output_config: {effort: high}
+  #
+  # OpenAI-compatible cloud API (OpenAI, OpenRouter, …):
+  # some-openrouter-model:
+  #   kind: cloud
+  #   provider: openai
+  #   base_url: https://openrouter.ai/api/v1
+  #   model_id: vendor/model-name
+  #   api_key: env:OPENROUTER_API_KEY
+  #   context: 200000
+  #   max_concurrency: 8
+  #
+  # opencode-only models (auth: OPENCODE_API_KEY in .env). The Go subscription accepts the suite's
+  # own prompts; the free tier only serves sessions with opencode's stock prompt and tools.
+  # muse-spark-1.3-go:
+  #   display_name: Muse Spark 1.3 Contributor (opencode Go)
+  #   kind: cloud
+  #   provider: opencode
+  #   opencode_model: opencode-go/muse-spark-1.3-contributor
+  #   context: 1048576
+  #   max_output_tokens: 131072
+  #   vision: true
+  #   tool_calling: true
+  #   max_concurrency: 4
+  #
+  # muse-spark-1.3-free:
+  #   display_name: Muse Spark 1.3 Free (opencode)
+  #   kind: cloud
+  #   provider: opencode
+  #   opencode_model: opencode/muse-spark-1.3-contributor-free
+  #   opencode_stock_prompt: true
+  #   context: 1048576
+  #   max_output_tokens: 131072
+  #   vision: true
+  #   tool_calling: true
+  #   max_concurrency: 2

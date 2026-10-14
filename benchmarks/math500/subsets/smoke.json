@@ -1,0 +1,14 @@
+{
+ "benchmark": "math500",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "7e058df9fea0",
+ "ids": [
+  "test/algebra/2064.json",
+  "test/intermediate_algebra/1467.json",
+  "test/prealgebra/2057.json",
+  "test/number_theory/89.json",
+  "test/precalculus/499.json"
+ ]
+}

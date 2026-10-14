@@ -1,0 +1,14 @@
+{
+ "benchmark": "bfcl_v4",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "c687f6a7a472",
+ "ids": [
+  "live_multiple/live_multiple_583-157-4",
+  "live_irrelevance/live_irrelevance_430-105-0",
+  "simple_python/simple_python_203",
+  "live_multiple/live_multiple_543-152-5",
+  "live_irrelevance/live_irrelevance_672-215-0"
+ ]
+}

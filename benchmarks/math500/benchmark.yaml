@@ -1,0 +1,10 @@
+slug: math500
+title: MATH-500
+category: Math
+description: 500 competition problems (the "MATH-500" subset of Hendrycks MATH used by Lightman et al.), graded with math-verify.
+runner: chat
+metric: accuracy
+max_tokens: 32768
+sources:
+  - url: https://huggingface.co/datasets/HuggingFaceH4/MATH-500
+license: MIT

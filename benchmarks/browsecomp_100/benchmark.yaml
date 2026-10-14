@@ -1,0 +1,19 @@
+slug: browsecomp_100
+title: BrowseComp (seeded 100)
+category: Search agent
+description: A fixed, seeded 100-question subset of OpenAI's BrowseComp (1,266 hard-to-find web questions), standing in for "BrowseComp Top100". The opencode agent uses keyless web search/fetch; simple-evals answer format; judged for equivalence by the cloud judge.
+runner: oc
+metric: accuracy (judge)
+judge: true
+requires: {network: true}
+sample_timeout_s: 2400
+badges: [substitute]
+tiers: {smoke: 5, quick: 50, standard: 100, full: 100}
+options:
+  subset_seed: 2025
+  subset_size: 100
+sources:
+  - url: https://openaipublic.blob.core.windows.net/simple-evals/browse_comp_test_set.csv
+  - url: https://github.com/openai/simple-evals
+license: MIT
+notes: Substitute — no public "BrowseComp Top100" split exists; this is a deterministic random 100 from the public set (seed in options).

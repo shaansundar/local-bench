@@ -1,0 +1,14 @@
+{
+ "benchmark": "supergpqa",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "e122a97601a4",
+ "ids": [
+  "fcbdf62e4ad74a298d4f537588e2371e",
+  "fe3932eb496f4ae8ae09e08a64e6ff6d",
+  "72babbc9ea034c72b2bd6a06dd8e9e80",
+  "b5c6f0911df44deaa95854dd5c9e530a",
+  "c97e309681154d899b4f8596aa693dcc"
+ ]
+}

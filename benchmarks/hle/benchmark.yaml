@@ -1,0 +1,16 @@
+slug: hle
+title: Humanity's Last Exam
+category: Knowledge
+description: 2,500 expert-written frontier questions across dozens of subjects. Text-only subset (questions with images are excluded so every model sees the same set). Official answer format; graded for equivalence by the cloud judge with the official HLE judge prompt.
+runner: chat
+metric: accuracy (judge)
+judge: true
+max_tokens: 32768
+gated: true
+options:
+  text_only: true
+sources:
+  - url: https://huggingface.co/datasets/cais/hle
+    note: gated — accept the terms on Hugging Face, then `hf auth login`
+  - url: https://github.com/centerforaisafety/hle
+license: MIT

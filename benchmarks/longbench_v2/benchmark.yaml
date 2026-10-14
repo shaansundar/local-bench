@@ -1,0 +1,11 @@
+slug: longbench_v2
+title: LongBench v2
+category: Long context
+description: 503 challenging multiple-choice questions over 8k–2M-word contexts (single/multi-doc QA, long ICL, dialogue history, code repos, structured data). Contexts longer than the model's window are truncated in the middle (official convention). Stratified by difficulty × length.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+sources:
+  - url: https://huggingface.co/datasets/zai-org/LongBench-v2
+  - url: https://github.com/THUDM/LongBench
+license: Apache-2.0

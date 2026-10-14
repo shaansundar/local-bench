@@ -1,0 +1,16 @@
+slug: nolima
+title: NoLiMa
+category: Long context
+description: Needle-in-a-haystack with minimal lexical overlap — the question and the needle share no keywords, so retrieval needs latent association (one-hop and two-hop). Contexts of 8K and 32K tokens, needle depths 0–100%. Haystack lengths use a tokenizer-free estimate instead of each model's tokenizer.
+runner: chat
+metric: accuracy (contains)
+max_tokens: 8192
+badges: [adapted]
+options:
+  lengths: [8192, 32768]
+  depths: 11
+sources:
+  - url: https://huggingface.co/datasets/amodaresi/NoLiMa
+  - url: https://github.com/adobe-research/NoLiMa
+license: Adobe Research License (non-commercial)
+notes: Adapted — the official harness sizes haystacks with each model's tokenizer; here sizes are estimated (~3.6 chars/token), so the effective length differs slightly per model.

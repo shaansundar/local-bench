@@ -1,0 +1,66 @@
+<!doctype html>
+<!-- Source of docs/assets/cover.png (README banner, 2x) and social-preview.png (1280×640).
+     Re-render with any headless browser at a 1280×640 viewport. -->
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>local-bench cover</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #f7f5f0; --card: #fcfcfb; --ink: #0b0b0b; --ink-2: #52514e; --ink-3: #6f6d68;
+    --rule: #e1e0d9; --line: rgba(11, 11, 11, 0.14); --accent: #2a78d6;
+    --s1: #b7d3f6; --s2: #6da7ec; --s3: #2a78d6; --s4: #104281;
+  }
+  * { box-sizing: border-box; margin: 0; }
+  html, body { width: 1280px; height: 640px; background: var(--paper); overflow: hidden; }
+  body { font-family: Inter, system-ui, sans-serif; color: var(--ink); position: relative; }
+  .frame { position: absolute; inset: 28px; border: 1px solid var(--rule); border-radius: 22px; }
+  .left { position: absolute; left: 84px; top: 74px; width: 640px; }
+  .eyebrow { font: 500 14px/1 "JetBrains Mono", ui-monospace, monospace; letter-spacing: .16em; text-transform: uppercase; color: var(--accent); }
+  h1 { font: 400 128px/0.95 "Instrument Serif", Georgia, serif; letter-spacing: -0.02em; margin-top: 22px; }
+  h1 em { font-style: italic; }
+  .tag { font-size: 25px; line-height: 1.38; color: var(--ink-2); margin-top: 22px; max-width: 600px; }
+  .tag b { color: var(--ink); font-weight: 600; }
+  .chips { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 30px; max-width: 640px; }
+  .chip { font-size: 15px; font-weight: 500; color: var(--ink-2); background: var(--card); border: 1px solid var(--line); border-radius: 999px; padding: 6px 13px; }
+  .cmd { position: absolute; left: 84px; bottom: 70px; font: 400 17px/1 "JetBrains Mono", ui-monospace, monospace; color: var(--ink-2); }
+  .cmd span { color: var(--accent); }
+  .chart { position: absolute; right: 84px; bottom: 70px; width: 400px; }
+  .legend { display: flex; gap: 14px; justify-content: flex-end; font-size: 13px; color: var(--ink-3); margin-bottom: 18px; }
+  .legend i { display: inline-block; width: 10px; height: 10px; border-radius: 3px; margin-right: 6px; vertical-align: -1px; }
+  .plot { height: 300px; display: flex; align-items: flex-end; justify-content: space-between; border-bottom: 1.5px solid #c3c2b7; padding: 0 6px; }
+  .grp { display: flex; align-items: flex-end; gap: 2px; }
+  .bar { width: 19px; border-radius: 4px 4px 0 0; }
+  .labels { display: flex; justify-content: space-between; padding: 10px 6px 0; font: 500 12px/1 "JetBrains Mono", monospace; color: var(--ink-3); letter-spacing: .04em; }
+  .labels span { width: 82px; text-align: center; }
+</style>
+</head>
+<body>
+  <div class="frame"></div>
+  <div class="left">
+    <div class="eyebrow">Open-source LLM evaluation suite</div>
+    <h1>local-<em>bench</em></h1>
+    <p class="tag"><b>42 benchmarks on your own Mac.</b> Local and cloud models, sandboxed agents, and a live dashboard. No&nbsp;Docker.</p>
+    <div class="chips">
+      <span class="chip">Coding</span><span class="chip">Math</span><span class="chip">Instruction following</span>
+      <span class="chip">Knowledge</span><span class="chip">Long context</span><span class="chip">Tool use</span>
+      <span class="chip">Search agents</span><span class="chip">General agents</span><span class="chip">Spreadsheets</span>
+      <span class="chip">Slides</span><span class="chip">Office docs</span><span class="chip">Doc vision</span><span class="chip">Text-to-SQL</span>
+    </div>
+  </div>
+  <div class="cmd"><span>$</span> uv run bench run -m my-model -b all</div>
+  <div class="chart" aria-hidden="true">
+    <div class="legend"><span><i style="background:var(--s1)"></i>4B</span><span><i style="background:var(--s2)"></i>14B</span><span><i style="background:var(--s3)"></i>32B</span><span><i style="background:var(--s4)"></i>cloud</span></div>
+    <div class="plot">
+      <div class="grp"><div class="bar" style="height:96px;background:var(--s1)"></div><div class="bar" style="height:138px;background:var(--s2)"></div><div class="bar" style="height:172px;background:var(--s3)"></div><div class="bar" style="height:222px;background:var(--s4)"></div></div>
+      <div class="grp"><div class="bar" style="height:120px;background:var(--s1)"></div><div class="bar" style="height:178px;background:var(--s2)"></div><div class="bar" style="height:226px;background:var(--s3)"></div><div class="bar" style="height:282px;background:var(--s4)"></div></div>
+      <div class="grp"><div class="bar" style="height:52px;background:var(--s1)"></div><div class="bar" style="height:84px;background:var(--s2)"></div><div class="bar" style="height:118px;background:var(--s3)"></div><div class="bar" style="height:164px;background:var(--s4)"></div></div>
+      <div class="grp"><div class="bar" style="height:88px;background:var(--s1)"></div><div class="bar" style="height:130px;background:var(--s2)"></div><div class="bar" style="height:186px;background:var(--s3)"></div><div class="bar" style="height:240px;background:var(--s4)"></div></div>
+    </div>
+    <div class="labels"><span>CODE</span><span>MATH</span><span>AGENTS</span><span>OFFICE</span></div>
+  </div>
+</body>
+</html>

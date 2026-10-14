@@ -1,0 +1,16 @@
+slug: tau3_banking
+title: τ³-Bench Banking
+category: Tool use
+description: Knowledge-grounded banking customer service (97 tasks over 698 policy documents) from τ³-bench (tau2-bench v1.0.1, banking_knowledge). Offline BM25 retrieval config (no embeddings API); graded on final database state by the official evaluator; user simulator = the suite's judge model; pass^1.
+runner: native
+metric: pass^1
+judge: true
+sample_timeout_s: 3600
+requires: {tool_calling: true, judge_runtime: true}
+options:
+  retrieval_config: bm25
+sources:
+  - url: https://github.com/sierra-research/tau2-bench
+    revision: fc0055dc4e0a316c3f83133267fbd6faaa770992
+license: MIT
+notes: Uses the offline `bm25` retrieval config; leaderboard runs often use `alltools` (BM25 + OpenAI embeddings + shell), so absolute scores can differ.

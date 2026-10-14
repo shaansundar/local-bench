@@ -1,0 +1,14 @@
+slug: tau2_telecom
+title: τ²-Bench Telecom
+category: Tool use
+description: Dual-control customer-support simulations in the telecom domain (114 base-split tasks) — the agent uses tools while a simulated user also acts on their device. Run with the official tau2-bench v1.0.1 harness; the user simulator is the suite's fixed judge model; pass^1 = mean task reward.
+runner: native
+metric: pass^1
+judge: true
+sample_timeout_s: 3600
+requires: {tool_calling: true, judge_runtime: true}
+sources:
+  - url: https://github.com/sierra-research/tau2-bench
+    revision: fc0055dc4e0a316c3f83133267fbd6faaa770992
+license: MIT
+notes: The user simulator is the configured judge model (official leaderboards typically use GPT-4.1); scores are comparable across this suite, not exactly with external numbers.

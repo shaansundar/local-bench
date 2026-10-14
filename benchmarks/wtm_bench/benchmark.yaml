@@ -1,0 +1,15 @@
+slug: wtm_bench
+title: WTM-Bench (Workbook Time Machine)
+category: Spreadsheet
+description: Microsoft's realistic multi-artifact Excel automation benchmark — 150 tasks reconstructed from real workbook histories (Enron), level-5 (vague, realistic) phrasing. Run with the official benchmark.py multi-turn tool loop (model writes openpyxl/pandas code) and the official structural + cell-level grader, inside the sandbox.
+runner: native
+metric: mean score
+sample_timeout_s: 3600
+stratify: false
+options:
+  test_file: data/Backward_EnronFuse_v3/enronfuse_150_test.parquet   # level-1 set: enronfuse_150_level1_test.parquet
+  max_turns: 10
+sources:
+  - url: https://github.com/microsoft/WTM-Bench
+    revision: 83d45ae601f3241ac7246613c67b765e48f93c06
+license: MIT

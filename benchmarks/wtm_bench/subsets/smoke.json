@@ -1,0 +1,14 @@
+{
+ "benchmark": "wtm_bench",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "c13ada7635a2",
+ "ids": [
+  "032-Backward_EnronFuse.2264",
+  "038-Backward_EnronFuse.192",
+  "093-Backward_EnronFuse.2130",
+  "089-Backward_EnronFuse.787",
+  "072-Backward_EnronFuse.1330"
+ ]
+}

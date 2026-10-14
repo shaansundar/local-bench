@@ -1,0 +1,12 @@
+slug: gpqa_diamond
+title: GPQA-Diamond
+category: Knowledge
+description: 198 graduate-level, Google-proof science questions (Diamond subset). Choices are shuffled with a fixed per-question seed; simple-evals prompt.
+runner: chat
+metric: accuracy
+max_tokens: 32768
+gated: true
+sources:
+  - url: https://huggingface.co/datasets/Idavidrein/gpqa
+    note: gated — accept the terms on Hugging Face, then `hf auth login`
+license: CC-BY-4.0

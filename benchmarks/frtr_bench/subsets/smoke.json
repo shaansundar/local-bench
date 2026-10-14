@@ -1,0 +1,14 @@
+{
+ "benchmark": "frtr_bench",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "86e435af8f9a",
+ "ids": [
+  "frtr_0020_pharma-trials/2",
+  "frtr_0024_cybersecurity-incidents/0",
+  "frtr_0012_nonprofit-donations/3",
+  "frtr_0010_energy-production/2",
+  "frtr_0021_insurance-claims/4"
+ ]
+}

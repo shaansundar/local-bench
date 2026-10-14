@@ -1,0 +1,15 @@
+slug: spider
+title: Spider 1.0 (dev)
+category: Text-to-SQL
+description: 1,034 cross-domain text-to-SQL questions over 20 SQLite databases (Yale Spider dev set). Prompt = schema DDL with 3 example rows. Execution accuracy on the original databases (order-aware when the gold query has ORDER BY, multiset otherwise); test-suite database variants are not used.
+runner: chat
+metric: execution accuracy
+max_tokens: 16384
+options:
+  sample_rows: 3
+  query_timeout_s: 30
+sources:
+  - url: https://yale-lily.github.io/spider
+  - url: https://drive.google.com/file/d/1403EGqzIDoHMdQF4c9Bkyl7dZLZ5Wt6J
+    note: official spider_data.zip
+license: CC-BY-SA-4.0

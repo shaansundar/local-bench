@@ -1,0 +1,13 @@
+slug: docvqa
+title: DocVQA (val)
+category: Doc / vision
+description: Visual question answering on scanned industry documents (validation split, 5,349 questions; test answers are hidden behind the RRC server). Short-answer prompt; ANLS metric.
+runner: chat
+metric: ANLS
+max_tokens: 8192
+requires: {vision: true}
+badges: [vision]
+sources:
+  - url: https://huggingface.co/datasets/lmms-lab/DocVQA
+  - url: https://rrc.cvc.uab.es/?ch=17
+license: research use (see DocVQA terms)

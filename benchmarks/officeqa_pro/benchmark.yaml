@@ -1,0 +1,16 @@
+slug: officeqa_pro
+title: OfficeQA Pro
+category: Office docs
+description: 133 hard grounded-reasoning questions over 89 years of U.S. Treasury Bulletins (697 documents). The opencode agent works over the parsed text corpus (read-only, no web) with shell/grep/python, then answers in <FINAL_ANSWER> tags; official reward.py scoring at 0% tolerance (exact numeric match).
+runner: oc
+metric: accuracy (exact)
+gated: true
+sample_timeout_s: 2400
+options:
+  tolerance: 0.0
+sources:
+  - url: https://huggingface.co/datasets/databricks/officeqa
+    note: gated — request access on Hugging Face, then run "hf auth login"
+  - url: https://github.com/databricks/officeqa
+    revision: 7b9a3c154ef9fb40215bb67934afc43e6799de16
+license: CC-BY-SA-4.0 (data), Apache-2.0 (code)

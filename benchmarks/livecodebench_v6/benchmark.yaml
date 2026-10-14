@@ -1,0 +1,16 @@
+slug: livecodebench_v6
+title: LiveCodeBench v6
+category: Coding
+description: The 175 contest problems (LeetCode / AtCoder / Codeforces, Jan–Apr 2025) added in release v6 (test6.jsonl). Official LCB prompt; pass@1 on public + hidden tests, executed in the sandbox.
+runner: chat
+metric: pass@1
+max_tokens: 32768
+options:
+  files: [test6.jsonl]        # add test.jsonl..test5.jsonl for the full release_v6 (4.5 GB)
+  date_from: "2025-01-01"     # narrow (e.g. 2025-02-01) to match a specific report window
+  date_to: "2025-12-31"
+  per_test_timeout_s: 6
+sources:
+  - url: https://huggingface.co/datasets/livecodebench/code_generation_lite
+  - url: https://github.com/LiveCodeBench/LiveCodeBench
+license: CC-BY-4.0

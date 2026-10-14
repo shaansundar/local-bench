@@ -1,0 +1,13 @@
+slug: browsecomp_zh
+title: BrowseComp-ZH
+category: Search agent
+description: 289 hard multi-constraint questions about the Chinese web (BrowseComp-ZH). The opencode agent uses keyless web search/fetch; answers in the BrowseComp format; judged for equivalence by the cloud judge. Stratified by topic.
+runner: oc
+metric: accuracy (judge)
+judge: true
+requires: {network: true}
+sample_timeout_s: 2400
+sources:
+  - url: https://github.com/PALIN2018/BrowseComp-ZH
+    revision: 86abe635e7deef89ec00c68ff1c2588f0e2f2099
+license: MIT

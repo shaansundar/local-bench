@@ -1,0 +1,14 @@
+{
+ "benchmark": "tau3_banking",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "cca3d43910f7",
+ "ids": [
+  "task_086",
+  "task_001",
+  "task_027",
+  "task_057",
+  "task_031"
+ ]
+}

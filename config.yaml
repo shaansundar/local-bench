@@ -1,0 +1,36 @@
+# Suite-wide settings. Models live in models.yaml.
+
+seed: 1234
+
+# Samples per benchmark for each tier (null = the whole test set). Subsets are drawn once,
+# stratified and seeded, then frozen in benchmarks/<slug>/subsets/<tier>.json so every model
+# sees exactly the same items. Benchmarks can override these in their benchmark.yaml.
+tiers:
+  smoke: 5
+  quick: 50
+  standard: 300
+  full: null
+default_tier: quick
+
+judge:
+  # A models.yaml key. Must be a fixed cloud model so judged scores stay comparable,
+  # e.g. claude-opus-5-5 (needs ANTHROPIC_API_KEY in .env). Judge-graded samples stay
+  # "judge_pending" until this is set; then run `bench regrade --pending`.
+  model: null
+  max_concurrency: 8
+  max_tokens: 4096
+
+search:
+  max_results: 8
+  min_interval_s: 1.5
+  fetch_max_chars: 20000
+
+server:
+  host: 127.0.0.1
+  port: 8765
+
+defaults:
+  max_tokens: 32768        # per-response cap; a model's max_output_tokens can lower it
+  request_timeout_s: 3600
+  agent_timeout_s: 1800    # wall clock per agentic task
+  grade_workers: 8

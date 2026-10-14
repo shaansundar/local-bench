@@ -1,0 +1,12 @@
+slug: aime2026
+title: AIME 2026
+category: Math
+description: 30 problems from the 2026 AIME I & II. Graded with math-verify; avg@4 over repeated generations (MathArena-style).
+runner: chat
+metric: accuracy (avg@4)
+repeats: 4
+stratify: false
+max_tokens: 32768
+tiers: {smoke: 5, quick: null, standard: null, full: null}
+sources:
+  - url: https://huggingface.co/datasets/MathArena/aime_2026

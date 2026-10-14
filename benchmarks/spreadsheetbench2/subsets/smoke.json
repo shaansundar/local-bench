@@ -1,0 +1,14 @@
+{
+ "benchmark": "spreadsheetbench2",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "fe110258e79c",
+ "ids": [
+  "Financial_Model/02_02",
+  "Debugging/01_06",
+  "Template/11_03",
+  "Debugging/04_07",
+  "Financial_Model/19_04"
+ ]
+}

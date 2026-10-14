@@ -1,0 +1,17 @@
+slug: frtr_bench
+title: FRTR-Bench
+category: Spreadsheet
+description: Enterprise spreadsheet reasoning — 157 questions over 30 large multi-sheet workbooks (lookup, aggregation, cross-sheet, multimodal). The model gets the workbook (answer sheet removed) and iterates with sandboxed Python (up to 8 rounds), then states a final answer. The benchmark ships answers as cell references/expressions ("See Summary!B4", "Max of Summary!D3:D6"), which are resolved to values and graded by the cloud judge.
+runner: chat
+metric: accuracy (judge)
+judge: true
+max_tokens: 16384
+badges: [adapted]
+options:
+  max_turns: 8
+  exec_timeout_s: 120
+sources:
+  - url: https://github.com/AnmolGulati6/FRTR-bench
+    revision: aed8170d61fed9795b91b1396c60f5b2e5fe0f82
+license: see repository
+notes: Adapted — FRTR-Bench ships no runner or grader. Code-execution loop and judge-based grading over resolved reference cells are this suite's; questions about embedded images can only be answered by inspecting the file programmatically.

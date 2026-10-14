@@ -1,0 +1,17 @@
+slug: pptarena
+title: PPTArena
+category: Presentation
+description: 100 in-place PowerPoint editing cases on real decks (text, charts, tables, animations, master styles). The opencode agent edits input.pptx into output.pptx from the user instruction only. Graded with PPTArena's dual judge — instruction following (0–5) from the structural diff against the ground-truth deck, and visual quality (0–5) from rendered slides — using PPTArena's rubrics with the suite's fixed judge; score = (IF + VQ) / 10. Stratified by category.
+runner: oc
+metric: (IF + VQ) / 10 (judge)
+judge: true
+sample_timeout_s: 3600
+badges: [adapted, vision]
+options:
+  max_slides: 20
+sources:
+  - url: https://github.com/michaelofengenden/PPTArena
+    revision: 7072dc9b087f90c3fa271be015d66b7fe403daf9
+  - url: https://huggingface.co/datasets/mofengenden/PPTArena
+license: MIT
+notes: Adapted — PPTArena's judge code targets Gemini/OpenAI/OpenRouter clients; here its pptx_to_json, structural diff and verbatim rubrics/system prompts run on the suite's fixed (vision-capable) judge, with all slides compared in one call (capped by max_slides). Requires LibreOffice for rendering.

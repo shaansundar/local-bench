@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use local-bench, please cite it as below, and cite the papers of the individual benchmarks you report."
+title: "local-bench: a local LLM benchmark suite for macOS"
+abstract: "Runs 42 LLM benchmarks against local and cloud models on a single Mac, with Docker-free sandboxing, frozen seeded subsets, a fixed cloud judge and a live dashboard."
+type: software
+authors:
+  - given-names: Shaan
+    family-names: Sundar
+version: 0.1.0
+date-released: 2026-10-14
+license: MIT
+repository-code: "https://github.com/shaansundar/local-bench"
+keywords:
+  - llm
+  - benchmark
+  - evaluation
+  - local-llm
+  - apple-silicon

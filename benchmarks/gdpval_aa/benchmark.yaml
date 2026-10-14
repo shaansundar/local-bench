@@ -1,0 +1,19 @@
+slug: gdpval_aa
+title: GDPval-AA (approx.)
+category: General agent
+description: OpenAI's GDPval gold set — 220 real-world knowledge-work tasks from 44 occupations, with reference files and human-expert deliverables. Run Artificial Analysis-style with the Stirrup agent harness (local code execution in the sandbox + keyless web search/fetch). The cloud judge compares the model's deliverables with the expert's in randomized order; score = win + ½ tie (win rate vs. human experts). Stratified by sector.
+runner: native
+metric: win rate vs expert (judge)
+judge: true
+sample_timeout_s: 5400
+badges: [adapted]
+options:
+  max_turns: 60
+  max_chars_per_file: 30000
+sources:
+  - url: https://huggingface.co/datasets/openai/gdpval
+  - url: https://github.com/ArtificialAnalysis/Stirrup
+    revision: 247f24d56b2108235880ed2a2baea5d35b5a67ee
+  - url: https://artificialanalysis.ai/evaluations/gdpval-aa
+license: see dataset card
+notes: Approximation — Artificial Analysis grades GDPval-AA with pairwise Elo from a judge panel across models; here a single fixed judge compares each deliverable with the human expert's (GDPval's win-rate metric), so numbers are not comparable to AA's Elo. Requires an OpenAI-compatible endpoint for the agent.

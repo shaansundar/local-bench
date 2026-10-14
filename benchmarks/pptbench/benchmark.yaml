@@ -1,0 +1,14 @@
+slug: pptbench
+title: PPTBench (understanding + detection)
+category: Presentation
+description: PowerPoint slide comprehension from PPTBench — multiple-choice slide understanding (chart, table, layout, text questions; slide image + slide JSON) and detection (content extraction, element bounding boxes, style attributes from slide JSON). Official prompts and judges. Stratified by subset/task.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+badges: [partial]
+sources:
+  - url: https://github.com/Gastronomicluna/PPTBench-Eval
+    revision: 03c9706f4dc8d4eac6852511fa02764b9675b03e
+  - url: https://huggingface.co/collections/tyrionhuu/pptbench
+license: see repository
+notes: Partial — the Modification subset needs the full-deck JSON corpus and the Generation subset needs an external image pack plus an LLM judge; both are not included yet. The official answer parser falls back to eval() on model output, so answers are parsed with JSON/literal parsing instead (same accepted formats, no code execution).

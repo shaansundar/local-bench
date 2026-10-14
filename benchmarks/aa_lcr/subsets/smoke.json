@@ -1,0 +1,14 @@
+{
+ "benchmark": "aa_lcr",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "fd4d461319a9",
+ "ids": [
+  "co_dc_eq_history/34",
+  "co_pro_transcripts_2023/49",
+  "co_pro_ssheet_rel_tran/67",
+  "gc_bnpl/70",
+  "co_dc_press_b/25"
+ ]
+}

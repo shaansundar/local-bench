@@ -1,0 +1,17 @@
+slug: spreadsheetbench
+title: SpreadsheetBench (Verified 400)
+category: Spreadsheet
+description: 400 expert-verified, real-world Excel-forum manipulation tasks (cell-level and sheet-level). Official multi-round setting — the model writes Python (openpyxl/pandas) that is executed against the workbook, sees the output, and iterates up to 5 rounds to write the answer file. Graded with the official cell comparison at the answer position after LibreOffice recalculation.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+badges: [adapted]
+options:
+  max_turns: 5
+  exec_timeout_s: 120
+sources:
+  - url: https://github.com/RUCKBReasoning/SpreadsheetBench
+    revision: 49b73a94775fb489063f60ca1865e3a650079a79
+  - url: https://huggingface.co/datasets/KAKA22/SpreadsheetBench
+license: CC-BY-SA-4.0
+notes: Adapted — the official Docker/Jupyter code executor is replaced by the macOS sandbox (stateless python runs per round). Prompts, data and grader are official. Requires LibreOffice.

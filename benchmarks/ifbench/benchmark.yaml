@@ -1,0 +1,13 @@
+slug: ifbench
+title: IFBench
+category: Instruction following
+description: 300 prompts with 58 new, out-of-distribution verifiable output constraints (AllenAI). Official checkers; primary score is prompt-level loose accuracy, as on the IFBench leaderboard (strict is reported alongside).
+runner: chat
+metric: prompt-level loose accuracy
+max_tokens: 16384
+stratify: false
+sources:
+  - url: https://huggingface.co/datasets/allenai/IFBench_test
+  - url: https://github.com/allenai/IFBench
+    revision: 1c40f0c10d9b5c5c2f10a175a28007ebb64f7f4d
+license: ODC-BY

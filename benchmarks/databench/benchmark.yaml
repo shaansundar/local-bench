@@ -1,0 +1,14 @@
+slug: databench
+title: DataBench (SemEval-2025 Task 8)
+category: Spreadsheet
+description: Question answering over 15 real tabular datasets (SemEval-2025 Task 8 test set, 522 questions; boolean, category, number and list answers). Standard code baseline — the model writes answer(df), which runs on the full table in the sandbox; scored with the official databench_eval comparison.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+badges: [substitute]
+sources:
+  - url: https://huggingface.co/datasets/cardiffnlp/databench
+  - url: https://github.com/jorses/databench_eval
+    revision: 65f92cfad4f986f5496170f6bbcee48323f56c2f
+license: MIT
+notes: Substitute — the requested DataBench-LLM/DataBench repository does not exist; this is the DataBench benchmark from Cardiff NLP / IberLEF / SemEval-2025 Task 8.

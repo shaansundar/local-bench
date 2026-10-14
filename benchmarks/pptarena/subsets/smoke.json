@@ -1,0 +1,14 @@
+{
+ "benchmark": "pptarena",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "fbcd6738ede4",
+ "ids": [
+  "039",
+  "077",
+  "055",
+  "035",
+  "081"
+ ]
+}

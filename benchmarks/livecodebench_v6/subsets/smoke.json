@@ -1,0 +1,14 @@
+{
+ "benchmark": "livecodebench_v6",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "38a594d2ee1c",
+ "ids": [
+  "abc400_g",
+  "abc390_d",
+  "3753",
+  "abc391_g",
+  "abc396_d"
+ ]
+}

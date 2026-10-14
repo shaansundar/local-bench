@@ -1,0 +1,11 @@
+slug: mmlu_pro
+title: MMLU-Pro
+category: Knowledge
+description: 12,032 ten-option multiple-choice questions across 14 disciplines; zero-shot CoT with the official "the answer is (X)" format. Stratified by category.
+runner: chat
+metric: accuracy
+max_tokens: 32768
+sources:
+  - url: https://huggingface.co/datasets/TIGER-Lab/MMLU-Pro
+  - url: https://github.com/TIGER-AI-Lab/MMLU-Pro
+license: MIT

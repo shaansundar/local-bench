@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Questions & ideas
+    url: https://github.com/shaansundar/local-bench/discussions
+    about: Ask how to run something, share results, or float an idea before filing an issue.
+  - name: Report a security vulnerability
+    url: https://github.com/shaansundar/local-bench/security/advisories/new
+    about: Sandbox escapes, secret leaks and similar issues — please report privately.

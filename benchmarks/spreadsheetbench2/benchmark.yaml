@@ -1,0 +1,14 @@
+slug: spreadsheetbench2
+title: SpreadsheetBench 2
+category: Spreadsheet
+description: End-to-end business spreadsheet workflows (NeurIPS 2026) — Debugging (100 audit/fix tasks), Financial_Model (100 multi-sheet models), Template (97 completions). The opencode agent edits the input workbook with Python/openpyxl and writes the output file; graded with the official cell-level comparison over the answer range (font-color / formula modes where the official evaluator uses them) after LibreOffice recalculation. Stratified by category.
+runner: oc
+metric: accuracy
+sample_timeout_s: 3600
+badges: [adapted]
+sources:
+  - url: https://github.com/RUCKBReasoning/SpreadsheetBench-2
+    revision: 5842db8f836887db15144b267467339bb7458f92
+  - url: https://huggingface.co/datasets/KAKA22/SpreadsheetBench-v2
+license: see repository
+notes: Adapted — the official SWE-agent Docker environment is replaced by opencode in the macOS sandbox (instructions follow the official instance template; a view_xlsx.py helper stands in for the view_xlsx tool). The Visualization category is excluded (its evaluator exports charts through Excel/WPS COM on Windows). Requires LibreOffice.

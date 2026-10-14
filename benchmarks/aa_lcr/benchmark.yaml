@@ -1,0 +1,13 @@
+slug: aa_lcr
+title: AA-LCR
+category: Long context
+description: Artificial Analysis Long Context Reasoning — 100 questions, each over a set of real documents (~100k tokens total) requiring multi-document reasoning. Official prompt; answers graded for equivalence by the cloud judge.
+runner: chat
+metric: accuracy (judge)
+judge: true
+max_tokens: 16384
+stratify: true
+requires: {min_context: 128000}
+sources:
+  - url: https://huggingface.co/datasets/ArtificialAnalysis/AA-LCR
+license: Apache-2.0 (questions); documents retain their own licenses

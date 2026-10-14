@@ -1,0 +1,14 @@
+{
+ "benchmark": "bird_minidev",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "0c0fc3ab6ed1",
+ "ids": [
+  "479",
+  "971",
+  "1001",
+  "1426",
+  "1149"
+ ]
+}

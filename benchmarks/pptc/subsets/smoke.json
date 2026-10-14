@@ -1,0 +1,14 @@
+{
+ "benchmark": "pptc",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "891bba2c5534",
+ "ids": [
+  "short/session_131/4",
+  "short/session_117/1",
+  "short/session_56/8",
+  "short/session_79/4",
+  "short/session_224/2"
+ ]
+}

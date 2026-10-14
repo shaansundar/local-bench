@@ -1,0 +1,15 @@
+slug: bird_minidev
+title: BIRD-SQL (Mini-Dev)
+category: Text-to-SQL
+description: 500 SELECT-only text-to-SQL questions over 11 real SQLite databases (BIRD Mini-Dev, curated from BIRD dev), with external-knowledge "evidence". Prompt = schema DDL with 3 example rows per table. Execution accuracy (official set-equality of result rows), queries run read-only in the sandbox. Stratified by difficulty.
+runner: chat
+metric: execution accuracy
+max_tokens: 16384
+options:
+  sample_rows: 3
+  query_timeout_s: 30
+sources:
+  - url: https://github.com/bird-bench/mini_dev
+  - url: https://bird-bench.oss-cn-beijing.aliyuncs.com/minidev.zip
+    note: official Mini-Dev package (databases + questions, ~800 MB)
+license: CC-BY-SA-4.0

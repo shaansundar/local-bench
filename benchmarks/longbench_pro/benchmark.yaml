@@ -1,0 +1,17 @@
+slug: longbench_pro
+title: LongBench Pro
+category: Long context
+description: 1,500 bilingual (EN/ZH) long-context samples, 11 primary / 25 secondary tasks, 8k–256k tokens. Official per-task metrics (NDCG, pairwise accuracy, F1, SubEM, accuracy). Over-long contexts are middle-truncated. Stratified by length.
+runner: chat
+metric: mean task metric
+max_tokens: 16384
+badges: [partial]
+options:
+  question: thinking     # thinking | nonthinking (which question variant to ask)
+sources:
+  - url: https://huggingface.co/datasets/caskcsg/LongBench-Pro
+  - url: https://github.com/caskcsg/longcontext/tree/main/LongBench-Pro
+    revision: 49ee3192bd2f9176515444370348aa55db5348ce
+license: Apache-2.0
+notes: Partial — the official Summary metric averages ROUGE-L with Qwen3-Embedding-8B similarity; that 16 GB embedding model cannot share RAM with the model under test, so summary tasks (T4.x) are scored with ROUGE-L only.
+oracle_min: 0.9   # the official NDCG / pairwise / F1 metrics score a bare gold answer slightly below 1

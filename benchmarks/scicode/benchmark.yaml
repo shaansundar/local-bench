@@ -1,0 +1,19 @@
+slug: scicode
+title: SciCode (with background)
+category: Coding
+description: 65 research-level scientific coding problems split into 288 sub-steps (physics, chemistry, biology, math, materials). Official multi-step protocol with step background ("wbg"); each step's code builds on the model's own earlier steps and is tested against reference values from test_data.h5 in the sandbox. Score per problem = fraction of sub-steps passed; main-problem and sub-problem accuracy are reported.
+runner: chat
+metric: sub-step pass rate
+max_tokens: 16384
+sample_timeout_s: 7200
+stratify: false
+options:
+  with_background: true
+  step_timeout_s: 600
+sources:
+  - url: https://huggingface.co/datasets/SciCode1/SciCode
+  - url: https://github.com/scicode-bench/SciCode
+    revision: e3158ea011d4235245a547460d3688d7ccbf9900
+  - url: https://drive.google.com/file/d/17G_k65N_6yFFZ2O-jQH00Lh6iaw3z-AW
+    note: official test_data.h5 (numeric targets)
+license: Apache-2.0

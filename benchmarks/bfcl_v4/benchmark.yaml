@@ -1,0 +1,14 @@
+slug: bfcl_v4
+title: BFCL v4
+category: Tool use
+description: Berkeley Function Calling Leaderboard v4 — non-live (simple/multiple/parallel, Python/Java/JS), live user-contributed calls, relevance/irrelevance, multi-turn (base, missing function/parameter, long context) and agentic web search. Official bfcl-eval harness and checkers in function-calling mode; one entry per sample. Stratified by category.
+runner: native
+metric: accuracy
+sample_timeout_s: 1800
+requires: {tool_calling: true, network: true}
+badges: [partial]
+sources:
+  - url: https://github.com/ShishirPatil/gorilla/tree/main/berkeley-function-call-leaderboard
+    revision: 6ea57973c7a6097fd7c5915698c54c17c5b1b6c8
+license: Apache-2.0
+notes: Partial — the memory categories (KV / vector / recursive-summary backends) and prompt-mode format sensitivity are not included. Web search uses keyless DuckDuckGo in place of SerpAPI's DuckDuckGo engine. Requires an OpenAI-compatible endpoint (local models, OpenAI, OpenRouter).

@@ -1,0 +1,15 @@
+slug: officecomprehension
+title: OfficeComprehensionBench
+category: Office docs
+description: 1,018 questions over Word, Excel, PowerPoint and CSV files (file-fidelity and finance/domain tracks). The model gets the document text and answers; every expected assertion is checked by the cloud judge with the official OCB assertion prompt; the score is the weight-averaged fraction of assertions satisfied. Stratified by track.
+runner: chat
+metric: weighted assertion score (judge)
+judge: true
+max_tokens: 16384
+badges: [adapted]
+sources:
+  - url: https://huggingface.co/datasets/microsoft/OfficeComprehensionBenchmark
+  - url: https://github.com/microsoft/OfficeComprehensionBench
+    revision: ce90d36916025d5a4a9c3794e422d10a30c0ae80
+license: MIT (code); reference documents retain their source licenses
+notes: Adapted — documents are turned into text with python-docx/pptx/openpyxl/pypdfium2 (the official baseline uses Apache Tika on .docx conversions), and a single fixed judge replaces the optional GPT/Gemini/Claude majority vote. Questions whose reference files cannot be downloaded are dropped (the count is logged at fetch).

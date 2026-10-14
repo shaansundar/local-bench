@@ -1,0 +1,12 @@
+slug: multi_if
+title: Multi-IF
+category: Instruction following
+description: 3-turn, multilingual (8 languages) instruction-following conversations; each turn adds verifiable constraints. Score per conversation = mean over the 3 turns of the average of prompt/instruction-level strict/loose accuracy (Multi-IF paper convention). Stratified by language.
+runner: chat
+metric: average accuracy over 3 turns
+max_tokens: 16384
+sources:
+  - url: https://huggingface.co/datasets/facebook/Multi-IF
+  - url: https://github.com/facebookresearch/Multi-IF
+    revision: 1cdb53ed18499ad729e0766e5d3099dd5344406f
+license: CC-BY-NC-4.0

@@ -1,0 +1,86 @@
+name: New benchmark proposal
+description: Propose adding a benchmark to the suite (please open this before writing the adapter)
+labels: ["new benchmark"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Proposals are checked against the acceptance criteria in
+        [CONTRIBUTING.md](https://github.com/shaansundar/local-bench/blob/main/CONTRIBUTING.md#adding-a-new-benchmark).
+        The step-by-step build guide is [docs/NEW_BENCHMARK.md](https://github.com/shaansundar/local-bench/blob/main/docs/NEW_BENCHMARK.md).
+  - type: input
+    id: name
+    attributes:
+      label: Benchmark name
+      placeholder: e.g. MyBench v2
+    validations:
+      required: true
+  - type: textarea
+    id: sources
+    attributes:
+      label: Paper, code and data
+      description: Links to the paper, the official repository and the dataset (Hugging Face, GitHub release, …).
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Coding
+        - Math
+        - Instruction following
+        - Knowledge
+        - Long context
+        - Tool use
+        - Search agent
+        - General agent
+        - Spreadsheet
+        - Presentation
+        - Office docs
+        - Doc / vision
+        - Text-to-SQL
+        - Other (explain below)
+    validations:
+      required: true
+  - type: dropdown
+    id: runner
+    attributes:
+      label: Runner type
+      description: See "Pick the runner type" in docs/NEW_BENCHMARK.md.
+      options:
+        - chat (prompt → answer, or a scripted dialogue)
+        - oc (opencode agent with files / shell / web in a sandbox)
+        - native (an official harness that drives the model)
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: grading
+    attributes:
+      label: How is it graded?
+      description: Deterministic match, executed tests, official grader code, or an LLM judge (which rubric)?
+    validations:
+      required: true
+  - type: checkboxes
+    id: criteria
+    attributes:
+      label: Acceptance criteria
+      options:
+        - label: The data is publicly downloadable (or gated behind accepting terms on Hugging Face)
+          required: true
+        - label: Its license allows using it for evaluation
+          required: true
+        - label: It runs on macOS without Docker, VMs, Windows COM or paid third-party services
+          required: true
+        - label: I'm willing to implement it (or help someone else do so)
+  - type: textarea
+    id: why
+    attributes:
+      label: Why add it?
+      description: What signal does it add that the current 42 benchmarks don't? Typical size and run time?
+  - type: textarea
+    id: deviations
+    attributes:
+      label: Expected deviations from the official setup
+      description: Anything that would need the adapted / substitute / partial badge.

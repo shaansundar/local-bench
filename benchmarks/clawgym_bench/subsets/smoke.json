@@ -1,0 +1,14 @@
+{
+ "benchmark": "clawgym_bench",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "d5a490a7c637",
+ "ids": [
+  "039",
+  "151",
+  "010",
+  "168",
+  "031"
+ ]
+}

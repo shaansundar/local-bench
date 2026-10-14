@@ -1,0 +1,13 @@
+slug: chartqa
+title: ChartQA
+category: Doc / vision
+description: Question answering over charts — 2,500 test questions (1,250 human-written, 1,250 machine-generated). Relaxed accuracy (numbers within 5%). Stratified by human/augmented.
+runner: chat
+metric: relaxed accuracy
+max_tokens: 8192
+requires: {vision: true}
+badges: [vision]
+sources:
+  - url: https://huggingface.co/datasets/HuggingFaceM4/ChartQA
+  - url: https://github.com/vis-nlp/ChartQA
+license: GPL-3.0

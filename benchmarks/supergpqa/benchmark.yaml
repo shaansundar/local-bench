@@ -1,0 +1,11 @@
+slug: supergpqa
+title: SuperGPQA
+category: Knowledge
+description: 26,529 graduate-level questions across 285 disciplines with up to 10 options. Zero-shot CoT; stratified by discipline.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+sources:
+  - url: https://huggingface.co/datasets/m-a-p/SuperGPQA
+  - url: https://github.com/SuperGPQA/SuperGPQA
+license: ODC-BY

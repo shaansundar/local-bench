@@ -1,0 +1,14 @@
+{
+ "benchmark": "longbench_v2",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "4212166fb860",
+ "ids": [
+  "6723a770bb02136c067d7233",
+  "66ee490e821e116aacb2149c",
+  "6728586bbb02136c067d8f4f",
+  "66f8c9febb02136c067c4511",
+  "66fea153bb02136c067ca3e7"
+ ]
+}

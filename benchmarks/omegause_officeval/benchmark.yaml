@@ -1,0 +1,15 @@
+slug: omegause_officeval
+title: OmegaUse-OfficeVal
+category: Office docs
+description: Long-horizon office-suite tasks with economic grounding (Baidu, 2026) — editing and producing Word, Excel, PowerPoint and PDF deliverables (≈2.3 human-hours each). The opencode agent works on the task's input files and saves deliverables; the official per-task verifier scores them (completion = max(0,total)/max, 0 if the deliverable check fails). The 9 verifiers that need Microsoft Office COM are excluded (91 tasks).
+runner: oc
+metric: completion rate
+sample_timeout_s: 3600
+options:
+  language: en
+sources:
+  - url: https://huggingface.co/datasets/baidu-frontier-research/OmegaUse-OfficeVal
+  - url: https://github.com/baidu-frontier-research/OmegaUse-OfficeVal
+    revision: 5f3da616ac6a0bc30ca35e9678f8f1eb255bd91a
+license: see repository
+notes: The given link (vollero/hf-daily-paper-summaries) is a paper digest; this is the official release. Verifiers run in the sandbox with network off.

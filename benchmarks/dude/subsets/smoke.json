@@ -1,0 +1,14 @@
+{
+ "benchmark": "dude",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "c1ab4ac238cb",
+ "ids": [
+  "b3bdb82180ad8c84aa023f705bb6a173_10d1df291c57f0e85d0b06d7fd6c8a11",
+  "727125d132beec6401d1aa0cd7c053f8_7c29a277b3110ecdda2ca641f8a120e3",
+  "b52a2c63bf895160626c1f2841f59b41_4a6319e42aec45e54de94867a833cc52",
+  "22e055609649a926381c50bad1cf92af_095c2bbedde222fa2b6ed2eeba481fa1",
+  "aa167fab5b5c8947972c39a88a7db411_2ffb46e723f6ebb1bb11143e0935f976"
+ ]
+}

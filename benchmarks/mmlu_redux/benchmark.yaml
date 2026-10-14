@@ -1,0 +1,10 @@
+slug: mmlu_redux
+title: MMLU-Redux 2.0
+category: Knowledge
+description: Manually re-annotated MMLU (57 subjects). Uses questions marked "ok" plus "wrong_groundtruth" ones with their corrected answer; ambiguous/no-answer items are excluded. Zero-shot CoT, stratified by subject.
+runner: chat
+metric: accuracy
+max_tokens: 16384
+sources:
+  - url: https://huggingface.co/datasets/edinburgh-dawg/mmlu-redux-2.0
+license: CC-BY-4.0

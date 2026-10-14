@@ -1,0 +1,14 @@
+{
+ "benchmark": "browsecomp_zh",
+ "tier": "smoke",
+ "seed": 1234,
+ "n": 5,
+ "hash": "09689cc923ce",
+ "ids": [
+  "168",
+  "20",
+  "138",
+  "246",
+  "76"
+ ]
+}
