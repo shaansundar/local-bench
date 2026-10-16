@@ -18,7 +18,7 @@ from pathlib import Path
 
 from bench import sandbox
 from bench.benchmark import AgentTask, Benchmark, ModelOutput, RunContext
-from bench.config import ModelSpec, load_config, resolve_secret
+from bench.config import ModelSpec, load_config, opencode_user_config, resolve_secret
 
 HOME = Path.home()
 
@@ -65,6 +65,11 @@ def model_ref(spec: ModelSpec, base_url: str | None) -> tuple[str, dict]:
     """(provider/model string, provider config to inject)."""
     if spec.opencode_model and (spec.kind == "cloud" or not base_url or base_url == spec.base_url):
         return spec.opencode_model, {}
+    pid = (spec.opencode_model or "").split("/", 1)[0]
+    if pid and pid in (opencode_user_config().get("provider") or {}):
+        # Keep your own provider definition (reasoning, modalities, limits, auth) and only re-point it,
+        # e.g. at the request-override proxy; this layer is deep-merged over your opencode config.
+        return spec.opencode_model, {pid: {"options": {"baseURL": base_url}}}
     if not base_url:
         raise RuntimeError(f"model {spec.key}: set opencode_model or a base_url for agentic runs")
     model_id = spec.model_id or spec.model or spec.key

@@ -89,11 +89,27 @@ class Worker:
         self._recent: deque = deque(maxlen=40)
         self._tok_window: deque = deque(maxlen=2000)
         self._stream_samples: deque = deque()
-        self._state: dict = {"phase": "idle"}
+        # live state per model being processed (thread-local key), so parallel models don't clobber each other
+        self._tl = threading.local()
+        self._states: dict[str, dict] = {"_": {"phase": "idle"}}
         self._last_state_write = 0.0
         self._mcp_url: str | None = None
 
     # ---- logging / live state ----------------------------------------------------------------
+    @property
+    def _state(self) -> dict:
+        return self._states.setdefault(getattr(self._tl, "model", None) or "_", {})
+
+    @_state.setter
+    def _state(self, value: dict) -> None:
+        self._states[getattr(self._tl, "model", None) or "_"] = value
+
+    def _combined_state(self) -> dict:
+        active = [dict(v) for k, v in list(self._states.items()) if k != "_"]
+        if not active:
+            return dict(self._states.get("_", {}))
+        return {**active[0], "parallel": active if len(active) > 1 else None}
+
     def log(self, msg: str) -> None:
         line = f"{time.strftime('%H:%M:%S')} {msg}"
         self._recent.append(line)
@@ -115,7 +131,7 @@ class Worker:
         cutoff = now - 60
         completed_rate = sum(n for t, n in self._tok_window if t >= cutoff) / 60.0
         # live streaming rate when available (local/OpenAI-compatible models), else completed-sample rate
-        state = {**self._state, "recent": list(self._recent), "tokens_per_s_60s": streamed_rate or completed_rate,
+        state = {**self._combined_state(), "recent": list(self._recent), "tokens_per_s_60s": streamed_rate or completed_rate,
                  "pid": os.getpid(), "heartbeat": now, "started_at": getattr(self, "_started_at", now)}
         try:
             self.store.set_worker_state(os.getpid(), state)
@@ -127,22 +143,42 @@ class Worker:
         while not done.wait(3.0):
             self._write_state(force=True)
 
-    def run_queue(self, only: set[str] | None = None) -> None:
+    def run_queue(self, only: set[str] | None = None, parallel_models: int | None = None) -> None:
+        limit = max(1, parallel_models or self.cfg.defaults.parallel_models)
         self._state = {"phase": "starting", "started_at": time.time()}
         self._started_at = time.time()
         hb_done = threading.Event()
         threading.Thread(target=self._heartbeat, args=(hb_done,), daemon=True, name="heartbeat").start()
+        active: dict[str, threading.Thread] = {}
         try:
             while not self.stop_event.is_set():
+                for key, t in list(active.items()):
+                    if not t.is_alive():
+                        del active[key]
                 queued = [r for r in self.store.queued_runs() if not only or r["id"] in only]
-                if not queued:
+                if not queued and not active:
                     break
-                model_key = queued[0]["model"]
-                runs = [r for r in queued if r["model"] == model_key]
-                specs = load_specs()
-                runs.sort(key=lambda r: (-r["priority"], RUNNER_ORDER.get(specs[r["benchmark"]].runner, 9)
-                                         if r["benchmark"] in specs else 9, r["created_at"]))
-                self.process_model(model_key, runs)
+                for model_key in dict.fromkeys(r["model"] for r in queued):  # highest-priority model first
+                    if model_key in active or len(active) >= limit:
+                        continue
+                    self.models = {**self.models, **load_models()}  # pick up models.yaml edits without a restart
+                    spec = self.models.get(model_key)
+                    if spec and spec.kind == "managed" and any(
+                            getattr(self.models.get(k), "kind", None) == "managed" for k in active):
+                        continue  # one locally launched model in RAM at a time
+                    runs = [r for r in queued if r["model"] == model_key]
+                    specs = load_specs()
+                    runs.sort(key=lambda r: (-r["priority"], RUNNER_ORDER.get(specs[r["benchmark"]].runner, 9)
+                                             if r["benchmark"] in specs else 9, r["created_at"]))
+                    if limit > 1:
+                        self.log(f"[{model_key}] starting ({len(active) + 1} model(s) running in parallel)")
+                    t = threading.Thread(target=self._model_thread, args=(model_key, runs), daemon=True,
+                                         name=f"model-{model_key}")
+                    active[model_key] = t
+                    t.start()
+                self.stop_event.wait(2.0)
+            for t in active.values():  # after Ctrl-C: let in-flight samples of every model finish
+                t.join()
             self._state = {"phase": "finishing grading"}
             self.log("waiting for grading to finish")
             self.grade_pool.shutdown(wait=True)
@@ -150,6 +186,16 @@ class Worker:
             hb_done.set()
             self._state = {"phase": "idle", "stopped": self.stop_event.is_set()}
             self._write_state(force=True)
+
+    def _model_thread(self, model_key: str, runs: list[dict]) -> None:
+        self._tl.model = model_key
+        try:
+            self.process_model(model_key, runs)
+        except Exception as e:  # never let one model's crash take the others down silently
+            self.log(f"[{model_key}] worker error: {type(e).__name__}: {e}")
+        finally:
+            self._states.pop(model_key, None)
+            self._tl.model = None
 
     def process_model(self, model_key: str, runs: list[dict]) -> None:
         spec = self.models.get(model_key)
@@ -182,6 +228,11 @@ class Worker:
                     try:
                         base_url = self.servers.ensure_up(spec, force=self.force_memory, log=self.log)
                         server_ready = True
+                        if spec.request_overrides and spec.provider == "openai" and base_url:
+                            from bench.models.proxy import override_proxy
+
+                            base_url = override_proxy(base_url, spec.request_overrides).url
+                            self.log(f"[{model_key}] forcing {spec.request_overrides} on every request via {base_url}")
                     except ServerError as e:
                         self.log(f"[{model_key}] {e}")
                         for r in runs:
@@ -238,7 +289,8 @@ class Worker:
         if bench.spec.requires.network:
             from bench.tools.search import start_mcp_server
 
-            self._mcp_url = self._mcp_url or start_mcp_server()
+            with self._plock:
+                self._mcp_url = self._mcp_url or start_mcp_server()
         ctx = RunContext(model=spec, client=client, run_dir=run_dir, judge=self.judge, tier=tier,
                          log=lambda m: self.log(f"[{slug}] {m}"), base_url=base_url, mcp_url=self._mcp_url)
         with self._plock:

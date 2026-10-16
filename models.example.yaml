@@ -17,6 +17,11 @@
 # opencode_model: how opencode addresses this model ("<provider>/<model>"); needed for agentic
 #   benchmarks. For local servers, declare the provider in ~/.config/opencode/opencode.json.
 #
+# params: extra fields for the suite's own chat calls (temperature, top_p, …).
+# request_overrides: fields forced into EVERY request the endpoint receives — direct chat, opencode agents
+#   and native harnesses alike — via a local proxy, e.g. {reasoning_effort: medium}. Use it for settings
+#   that must not differ between benchmarks.
+#
 # provider: opencode — every call goes through `opencode run` (auth from OPENCODE_API_KEY or
 #   `opencode auth login`): chat benchmarks via a tool-less agent, agentic ones via the sandboxed agent.
 #   Native harnesses that need a raw endpoint are n/a. Set opencode_stock_prompt: true for services

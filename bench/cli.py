@@ -173,16 +173,18 @@ def run(
 
 @app.command()
 def worker(watch: bool = typer.Option(False, "--watch", help="keep polling for new jobs"),
-           force: bool = typer.Option(False, "--force")):
+           force: bool = typer.Option(False, "--force"),
+           parallel_models: int = typer.Option(None, "--parallel-models", "-p",
+                                               help="models to run at the same time (default: config.yaml)")):
     """Drain the job queue (all queued runs)."""
     while True:
-        _run_worker(only=None, force=force)
+        _run_worker(only=None, force=force, parallel_models=parallel_models)
         if not watch:
             return
         time.sleep(5)
 
 
-def _run_worker(only: set[str] | None, force: bool) -> None:
+def _run_worker(only: set[str] | None, force: bool, parallel_models: int | None = None) -> None:
     from bench.worker import Worker, WorkerLock
 
     lock = WorkerLock()
@@ -192,7 +194,7 @@ def _run_worker(only: set[str] | None, force: bool) -> None:
         return
     w = Worker(log=lambda m: con.print(m, markup=False, highlight=False), force_memory=force)
     w.install_signals()
-    w.run_queue(only=None)  # drain everything queued, including jobs added by other `bench run` calls meanwhile
+    w.run_queue(only=None, parallel_models=parallel_models)  # drain everything queued, including jobs added by other `bench run` calls meanwhile
     _print_results(only)
 
 

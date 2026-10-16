@@ -89,3 +89,57 @@ def test_sandbox_blocks_home_writes_and_network(tmp_path: Path):
     assert (tmp_path / "ok.txt").exists()
     assert "HOME_WRITE" not in r.stdout and "NET" not in r.stdout
     assert not Path("~/bench_canary_test").expanduser().exists()
+
+
+def test_override_proxy_forces_fields_and_streams_through():
+    import json as _json
+    import socket
+    import threading
+    import time
+
+    import httpx
+    import uvicorn
+    from starlette.applications import Starlette
+    from starlette.responses import JSONResponse, StreamingResponse
+    from starlette.routing import Route
+
+    from bench.models.proxy import OverrideProxy
+
+    seen: list[dict] = []
+
+    async def chat(request):
+        seen.append({"body": _json.loads(await request.body()), "auth": request.headers.get("authorization")})
+
+        async def sse():
+            for word in ("hel", "lo"):
+                yield f'data: {{"choices":[{{"delta":{{"content":"{word}"}}}}]}}\n\n'.encode()
+            yield b"data: [DONE]\n\n"
+        return StreamingResponse(sse(), media_type="text/event-stream")
+
+    async def models(request):
+        return JSONResponse({"data": [{"id": "m"}]})
+
+    with socket.socket() as s:
+        s.bind(("127.0.0.1", 0))
+        port = s.getsockname()[1]
+    upstream = uvicorn.Server(uvicorn.Config(
+        Starlette(routes=[Route("/v1/chat/completions", chat, methods=["POST"]), Route("/v1/models", models)]),
+        host="127.0.0.1", port=port, log_level="warning"))
+    threading.Thread(target=upstream.run, daemon=True).start()
+    for _ in range(100):
+        if upstream.started:
+            break
+        time.sleep(0.05)
+
+    proxy = OverrideProxy(f"http://127.0.0.1:{port}/v1", {"reasoning_effort": "medium"})
+    base = proxy.start()
+    assert base.endswith("/v1")
+    body = {"model": "m", "messages": [{"role": "user", "content": "hi"}], "reasoning_effort": "xhigh", "stream": True}
+    with httpx.stream("POST", f"{base}/chat/completions", json=body, headers={"Authorization": "Bearer k"}) as r:
+        streamed = b"".join(r.iter_raw())
+    assert r.status_code == 200 and b'"hel"' in streamed and streamed.endswith(b"[DONE]\n\n")
+    assert seen[0]["body"]["reasoning_effort"] == "medium"          # override wins over the caller's value
+    assert seen[0]["body"]["messages"] == body["messages"] and seen[0]["auth"] == "Bearer k"
+    assert httpx.get(f"{base}/models").json() == {"data": [{"id": "m"}]}  # other paths untouched
+    assert proxy.n_overridden == 1
+    upstream.should_exit = True

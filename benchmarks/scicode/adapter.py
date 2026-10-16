@@ -72,11 +72,15 @@ class SciCode(Benchmark):
                 fcode = code
             previous = f"{prob['required_dependencies']}\n" + "\n".join(prev_code) + "\n"
             step_files.append({"step": step["step_number"], "index": i, "code": f"{previous}\n{code}",
-                               "n_tests": len(step["test_cases"])})
-            transcripts.append({"step": step["step_number"], "response": res.text[-6000:]})
+                               "n_tests": len(step["test_cases"]), "no_code": not code.strip(),
+                               "finish_reason": res.finish_reason})
+            transcripts.append({"step": step["step_number"], "response": res.text[-6000:],
+                                "finish_reason": res.finish_reason, "output_tokens": res.usage.get("output_tokens")})
             prev_code.append(fcode)
+        # "length" if any step ran out of tokens, so truncation is visible at the sample level too
+        finish = "length" if any(s["finish_reason"] == "length" for s in step_files) else "stop"
         return ModelOutput(text="\n\n".join(f"# step {s['step']}\n{s['code'].split(chr(10) + chr(10), 1)[-1]}" for s in step_files)[-20000:],
-                           usage=usage, latency=latency, finish_reason="stop",
+                           usage=usage, latency=latency, finish_reason=finish,
                            extra={"step_files": step_files, "responses": transcripts})
 
     # ---- grading: official test files, run in the sandbox against test_data.h5 --------------
@@ -101,7 +105,14 @@ class SciCode(Benchmark):
             r = sandbox.run([sys.executable, str(path)], cwd=work, timeout=timeout, network="none",
                             env={"PYTHONPATH": str(root / "src"), "HF_DATASETS_OFFLINE": "1"})
             status = "pass" if r.returncode == 0 else ("timeout" if r.timed_out else "fail")
-            results.append({"step": f["step"], "status": status, "stderr": r.stderr[-600:] if status != "pass" else ""})
+            stderr = r.stderr[-600:] if status != "pass" else ""
+            if status == "fail" and f.get("no_code"):
+                # The test still ran (and failed); say why instead of leaving a bare NameError.
+                status = "no_code"
+                why = ("hit max_tokens before writing any code" if f.get("finish_reason") == "length"
+                       else "the answer contained no code block")
+                stderr = f"model returned no code for this step ({why})\n\n{stderr}"
+            results.append({"step": f["step"], "status": status, "stderr": stderr})
         passed = sum(r["status"] == "pass" for r in results)
         return Grade(score=passed / len(results), extracted=f"{passed}/{len(results)} steps",
                      details={"steps": results, "passed": passed, "total": len(results),

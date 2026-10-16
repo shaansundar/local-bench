@@ -4,7 +4,7 @@ category: Coding
 description: 65 research-level scientific coding problems split into 288 sub-steps (physics, chemistry, biology, math, materials). Official multi-step protocol with step background ("wbg"); each step's code builds on the model's own earlier steps and is tested against reference values from test_data.h5 in the sandbox. Score per problem = fraction of sub-steps passed; main-problem and sub-problem accuracy are reported.
 runner: chat
 metric: sub-step pass rate
-max_tokens: 16384
+max_tokens: 32768        # same budget as LiveCodeBench / AIME; 16k truncated reasoning models mid-thought
 sample_timeout_s: 7200
 stratify: false
 options:

@@ -49,6 +49,9 @@ class Defaults(BaseModel):
     request_timeout_s: float = 3600
     agent_timeout_s: float = 1800
     grade_workers: int = 8
+    # Models the worker runs at the same time (each with its own max_concurrency). Two locally launched
+    # (managed) models never run together; external and cloud models can. `bench worker --parallel-models`.
+    parallel_models: int = 1
 
 
 class Config(BaseModel):
@@ -100,6 +103,10 @@ class ModelSpec(BaseModel):
     # extra request params merged into every chat call (temperature, top_p, reasoning_effort,
     # chat_template_kwargs, output_config, thinking, ...)
     params: dict[str, Any] = Field(default_factory=dict)
+    # Fields forced into EVERY request body this model's endpoint receives — direct chat, opencode
+    # agents and native harnesses alike — through a local proxy (bench/models/proxy.py). Use this for
+    # settings that must hold across all benchmarks, e.g. {reasoning_effort: medium}.
+    request_overrides: dict[str, Any] = Field(default_factory=dict)
     request_timeout_s: float | None = None
     notes: str | None = None
 

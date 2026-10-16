@@ -40,9 +40,13 @@ export default function LivePage({ snap }: { snap: LiveSnapshot | null }) {
           <div className="stack" style={{ gap: 8 }}>
             <div className="row"><span className="dot on" /><b>Worker running</b><span className="secondary">pid {w.pid} · {w.phase}</span></div>
             <div className="kpis">
-              <div className="kpi"><div className="v">{w.model ?? "–"}</div><div className="l">model</div></div>
-              <div className="kpi"><div className="v">{w.benchmark ?? "–"}</div><div className="l">benchmark{w.tier ? ` · ${w.tier}` : ""}</div></div>
-              <div className="kpi"><div className="v">{(w.tokens_per_s_60s ?? 0).toFixed(1)}</div><div className="l">output tok/s (last 60s)</div></div>
+              {(w.parallel ?? [w]).map((p: Record<string, any>) => (
+                <div className="kpi" key={p.model ?? "idle"}>
+                  <div className="v">{p.model ?? "–"}</div>
+                  <div className="l">{p.benchmark ?? "–"}{p.tier ? ` · ${p.tier}` : ""}{p.phase && p.phase !== "generating" ? ` · ${p.phase}` : ""}</div>
+                </div>
+              ))}
+              <div className="kpi"><div className="v">{(w.tokens_per_s_60s ?? 0).toFixed(1)}</div><div className="l">output tok/s (last 60s{w.parallel ? ", all models" : ""})</div></div>
               {w.started_at && <div className="kpi"><div className="v">{dur(snap.now - w.started_at)}</div><div className="l">worker uptime</div></div>}
             </div>
           </div>
